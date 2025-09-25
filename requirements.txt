@@ -1,0 +1,3 @@
+keyboard
+tkinterdnd2
+interception-python
