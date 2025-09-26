@@ -1,0 +1,2 @@
+[console_scripts]
+keyboard-simulator = keyboard_simulator.cli:main

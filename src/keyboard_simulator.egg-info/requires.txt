@@ -1,0 +1,12 @@
+keyboard>=0.13
+tkinterdnd2>=0.3.0
+
+[build]
+pyinstaller>=6.5
+
+[dev]
+pytest>=7.0
+ruff>=0.4
+
+[pro]
+interception-python>=0.1.3

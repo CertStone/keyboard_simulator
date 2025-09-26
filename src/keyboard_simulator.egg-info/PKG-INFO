@@ -1,0 +1,196 @@
+Metadata-Version: 2.4
+Name: keyboard-simulator
+Version: 0.1.0
+Summary: Cross-VM keyboard automation toolkit with GUI and driver-backed modes.
+Author: Keyboard Simulator Team
+License: MIT License
+        
+        Copyright (c) 2025 Keyboard Simulator Contributors
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Keywords: keyboard,automation,virtualization,Windows
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Environment :: Win32 (MS Windows)
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: keyboard>=0.13
+Requires-Dist: tkinterdnd2>=0.3.0
+Provides-Extra: pro
+Requires-Dist: interception-python>=0.1.3; extra == "pro"
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: ruff>=0.4; extra == "dev"
+Provides-Extra: build
+Requires-Dist: pyinstaller>=6.5; extra == "build"
+Dynamic: license-file
+
+<h1 align="center">Keyboard Simulator</h1>
+
+跨虚拟机键盘模拟器，帮助你在 VMware、VirtualBox、远程桌面和各种受限环境中“粘贴”文本或文件。项目同时提供：
+
+- 🧰 **命令行工具**：快速自动化脚本或批处理工作流。
+- 🪟 **GUI 版**：标准 Win32 模拟（SendInput），支持暂停、热键、拖拽文件。
+- 🛡️ **PRO 版**：基于 Interception 驱动的超高兼容方案，可在高防护/游戏环境中稳定运行。
+
+项目经过全面模块化重构，核心逻辑位于 `src/keyboard_simulator` 包，可作为库复用。
+
+---
+
+## ✨ 功能亮点
+
+- 统一的配置模型：文本输入或 Base64 文件传输，一套流程全搞定
+- CLI/GUI/PRO 共享同一套核心模块，减少重复逻辑
+- GUI 支持热键（F9/F10/F11）、暂停恢复、Unicode/ScanCode 双模式
+- PRO 版监听驱动层热键，物理键盘可正常使用
+- 结构化文档、单元测试、可复用的编码工具与模拟器 hooks
+
+---
+
+## 🚀 快速开始
+
+
+```powershell
+# 进入项目目录
+pip install --upgrade pip
+pip install -e .[dev]
+```
+
+> 若只需运行 GUI 版本，可仅安装基础依赖 `pip install -e .`。
+
+### 2. 运行命令行工具
+
+```powershell
+keyboard-simulator --text "echo hello" --delay 0.02
+```
+
+或使用配置文件：
+
+```powershell
+keyboard-simulator --config config.json
+```
+
+### 3. 启动 GUI
+
+```powershell
+python keyboard_simulator_gui.py
+```
+
+> 如果需要使用全局热键（F9/F10/F11），可能需要以管理员身份运行。
+
+### 4. 启动 PRO 版
+
+1.  安装 [Interception 驱动](https://github.com/oblitum/Interception/releases/latest) 并重启电脑。
+    （详细步骤见 `README_PRO.md`）
+
+2.  安装 PRO 版依赖：
+
+    ```powershell
+    pip install -e .[pro]
+    ```
+
+3.  运行 PRO 版：
+
+    ```powershell
+    python keyboard_simulator_pro.py
+    ```
+
+---
+
+## 📦 使用 PyInstaller 打包
+
+我们提供 `build/pyinstaller_build.py` 脚本，基于 PyInstaller 一键生成 GUI 与 PRO 独立可执行文件。
+
+### 1. 安装构建依赖
+
+```powershell
+pip install -e .[build]
+# 打包 PRO 版时同步安装驱动依赖：
+pip install -e .[pro,build]
+```
+
+> **提示：** PRO 版本仍需在目标机器上安装 Interception 驱动。
+
+### 2. 执行打包脚本
+
+```powershell
+# 打包普通 GUI 版
+python build/pyinstaller_build.py gui
+
+# 打包 PRO 版
+python build/pyinstaller_build.py pro
+
+# 一次性构建两种版本
+python build/pyinstaller_build.py all
+```
+
+脚本默认输出到 `dist/` 目录，并自动清理临时构建产物：
+
+-   `dist/KeyboardSimulatorGUI.exe`
+-   `dist/KeyboardSimulatorPro.exe`
+
+如需自定义 PyInstaller 选项，可在脚本中调整 `VARIANT_CONFIG`。
+
+---
+
+## 🧭 使用指南
+
+### CLI
+
+| 参数        | 说明                                    |
+| ----------- | --------------------------------------- |
+| `--config`  | 指定 JSON 配置文件路径                  |
+| `--text`    | 直接传入要输入的文本                    |
+| `--file`    | 要传输的本地文件路径                    |
+| `--target-os` | 目标系统 (`windows` 或 `linux`)         |
+| `--output`  | 在目标系统中保存的文件名                |
+| `--delay`   | 按键之间的延迟（秒）                    |
+| `--countdown` | 开始前的倒计时（秒）                    |
+| `--backend` | 使用的后端 (`sendinput` 或 `interception`) |
+
+### GUI / PRO
+
+-   **文本模式**: 直接在文本框中输入内容。
+-   **文件模式**: 将文件拖拽到窗口中，或使用新增的文件选择按钮。
+-   **通用设置**: 调整延迟和倒计时以适应不同性能的虚拟机。
+-   **热键**:
+    -   `F9`: 开始模拟
+    -   `F10`: 强制停止
+    -   `F11`: 暂停/恢复
+
+> PRO 版内置了更可靠的驱动层热键，无需依赖 `keyboard` 库。
+
+---
+
+## 🏗️ 架构与开发
+
+项目架构、开发流程和贡献指南详见 `docs/ARCHITECTURE.md` 和 `CONTRIBUTING.md`。
+
+-   **核心逻辑**: `src/keyboard_simulator`
+-   **测试**: `tests/`
+-   **构建脚本**: `build/`
+
+---
+
+## 📄 许可
+
+本项目采用 [MIT License](./LICENSE)。商业、个人使用皆可，保留版权声明即可。

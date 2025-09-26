@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "keyboard-simulator"
+version = "0.1.0"
+description = "Cross-VM keyboard automation toolkit with GUI and driver-backed modes."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Keyboard Simulator Team" }]
+license = { file = "LICENSE" }
+dependencies = [
+    "keyboard>=0.13",
+    "tkinterdnd2>=0.3.0",
+]
+keywords = ["keyboard", "automation", "virtualization", "Windows"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: Microsoft :: Windows",
+    "License :: OSI Approved :: MIT License",
+    "Environment :: Win32 (MS Windows)",
+]
+
+[project.optional-dependencies]
+pro = ["interception-python>=0.1.3"]
+dev = ["pytest>=7.0", "ruff>=0.4"]
+build = ["pyinstaller>=6.5"]
+
+[project.scripts]
+keyboard-simulator = "keyboard_simulator.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "B"]
+ignore = ["E203"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]

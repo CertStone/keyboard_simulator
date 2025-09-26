@@ -1,0 +1,320 @@
+2025-09-26 21:45:59,523 - root - INFO - Logging configured: Level=INFO, File=logs\keyboard_simulator.log
+2025-09-26 21:45:59,524 - __main__ - INFO - Application starting.
+2025-09-26 21:45:59,712 - __main__ - INFO - Initializing GUI application.
+2025-09-26 21:45:59,804 - __main__ - INFO - Global hotkeys (F9, F10, F11) registered successfully.
+2025-09-26 21:45:59,804 - __main__ - INFO - GUI initialized successfully.
+2025-09-26 21:46:18,456 - __main__ - INFO - Building configuration from UI.
+2025-09-26 21:46:18,456 - __main__ - INFO - Built plan with 1 tasks.
+2025-09-26 21:46:18,457 - __main__ - INFO - Input method selected: scancode
+2025-09-26 21:46:18,457 - __main__ - INFO - Starting simulation thread.
+2025-09-26 21:46:18,468 - __main__ - INFO - Simulation plan execution started.
+2025-09-26 21:46:23,472 - __main__ - INFO - Simulation status updated: running
+2025-09-26 21:46:23,472 - __main__ - CRITICAL - Runtime error during simulation: SendInput 调用失败 (返回值 0)
+Traceback (most recent call last):
+  File "C:\Users\tmp\Desktop\keyboard_simulator\keyboard_simulator_gui.py", line 266, in runner
+    sim.run_plan(plan)
+    ~~~~~~~~~~~~^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 64, in run_plan
+    self._execute_task(task, plan.delay_between_keystrokes)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 81, in _execute_task
+    self.backend.type_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 237, in type_character
+    self._type_scancode_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 206, in _type_scancode_character
+    self._key_down(vk_code)
+    ~~~~~~~~~~~~~~^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 177, in _key_down
+    self._send_input(inp)
+    ~~~~~~~~~~~~~~~~^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 162, in _send_input
+    raise BackendError(f"SendInput 调用失败 (返回值 {sent})")
+keyboard_simulator.backends.base.BackendError: SendInput 调用失败 (返回值 0)
+2025-09-26 21:46:23,478 - __main__ - INFO - Simulation status updated: error
+2025-09-26 21:46:29,175 - __main__ - INFO - Close window requested.
+2025-09-26 21:46:29,176 - __main__ - INFO - Destroying main window.
+2025-09-26 21:46:29,203 - __main__ - INFO - Application finished.
+2025-09-26 21:50:38,298 - root - INFO - Logging configured: Level=INFO, File=logs\keyboard_simulator.log
+2025-09-26 21:50:38,298 - __main__ - INFO - Application starting.
+2025-09-26 21:50:38,392 - __main__ - INFO - Initializing GUI application.
+2025-09-26 21:50:38,602 - __main__ - INFO - Global hotkeys (F9, F10, F11) registered successfully.
+2025-09-26 21:50:38,603 - __main__ - INFO - GUI initialized successfully.
+2025-09-26 21:50:46,172 - __main__ - INFO - Building configuration from UI.
+2025-09-26 21:50:46,173 - __main__ - INFO - Built plan with 1 tasks.
+2025-09-26 21:50:46,173 - __main__ - INFO - Input method selected: scancode
+2025-09-26 21:50:46,173 - __main__ - INFO - Starting simulation thread.
+2025-09-26 21:50:46,173 - __main__ - INFO - Simulation plan execution started.
+2025-09-26 21:50:51,177 - __main__ - INFO - Simulation status updated: running
+2025-09-26 21:50:51,178 - __main__ - CRITICAL - Runtime error during simulation: SendInput 调用失败 (返回值 0)
+Traceback (most recent call last):
+  File "C:\Users\tmp\Desktop\keyboard_simulator\keyboard_simulator_gui.py", line 266, in runner
+    sim.run_plan(plan)
+    ~~~~~~~~~~~~^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 64, in run_plan
+    self._execute_task(task, plan.delay_between_keystrokes)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 81, in _execute_task
+    self.backend.type_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 236, in type_character
+    self._type_scancode_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 201, in _type_scancode_character
+    self._key_down(vk_code)
+    ~~~~~~~~~~~~~~^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 171, in _key_down
+    self._send_input(inp)
+    ~~~~~~~~~~~~~~~~^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 155, in _send_input
+    raise BackendError(f"SendInput 调用失败 (返回值 {sent})")
+keyboard_simulator.backends.base.BackendError: SendInput 调用失败 (返回值 0)
+2025-09-26 21:50:51,184 - __main__ - INFO - Simulation status updated: error
+2025-09-26 21:50:55,949 - __main__ - INFO - Close window requested.
+2025-09-26 21:50:55,949 - __main__ - INFO - Destroying main window.
+2025-09-26 21:50:55,977 - __main__ - INFO - Application finished.
+2025-09-26 21:53:51,119 - root - INFO - Logging configured: Level=INFO, File=logs\keyboard_simulator.log
+2025-09-26 21:53:51,119 - __main__ - INFO - Application starting.
+2025-09-26 21:53:51,215 - __main__ - INFO - Initializing GUI application.
+2025-09-26 21:53:51,336 - __main__ - INFO - Global hotkeys (F9, F10, F11) registered successfully.
+2025-09-26 21:53:51,336 - __main__ - INFO - GUI initialized successfully.
+2025-09-26 21:54:00,177 - __main__ - INFO - Building configuration from UI.
+2025-09-26 21:54:00,178 - __main__ - INFO - Built plan with 1 tasks.
+2025-09-26 21:54:00,178 - __main__ - INFO - Input method selected: scancode
+2025-09-26 21:54:00,178 - __main__ - INFO - Starting simulation thread.
+2025-09-26 21:54:00,179 - __main__ - INFO - Simulation plan execution started.
+2025-09-26 21:54:05,183 - __main__ - INFO - Simulation status updated: running
+2025-09-26 21:54:05,183 - __main__ - CRITICAL - Runtime error during simulation: SendInput 调用失败 (返回值 0, 错误码 87)
+Traceback (most recent call last):
+  File "C:\Users\tmp\Desktop\keyboard_simulator\keyboard_simulator_gui.py", line 266, in runner
+    sim.run_plan(plan)
+    ~~~~~~~~~~~~^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 64, in run_plan
+    self._execute_task(task, plan.delay_between_keystrokes)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 81, in _execute_task
+    self.backend.type_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 239, in type_character
+    self._type_scancode_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 204, in _type_scancode_character
+    self._key_down(vk_code)
+    ~~~~~~~~~~~~~~^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 174, in _key_down
+    self._send_input(inp)
+    ~~~~~~~~~~~~~~~~^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 156, in _send_input
+    raise BackendError(
+        f"SendInput 调用失败 (返回值 {sent}, 错误码 {error})"
+    )
+keyboard_simulator.backends.base.BackendError: SendInput 调用失败 (返回值 0, 错误码 87)
+2025-09-26 21:54:05,189 - __main__ - INFO - Simulation status updated: error
+2025-09-26 21:54:10,861 - __main__ - INFO - Close window requested.
+2025-09-26 21:54:10,861 - __main__ - INFO - Destroying main window.
+2025-09-26 21:54:10,891 - __main__ - INFO - Application finished.
+2025-09-26 21:54:50,902 - root - INFO - Logging configured: Level=INFO, File=logs\keyboard_simulator.log
+2025-09-26 21:54:50,902 - __main__ - INFO - Application starting.
+2025-09-26 21:54:51,002 - __main__ - INFO - Initializing GUI application.
+2025-09-26 21:54:51,149 - __main__ - INFO - Global hotkeys (F9, F10, F11) registered successfully.
+2025-09-26 21:54:51,150 - __main__ - INFO - GUI initialized successfully.
+2025-09-26 21:54:56,597 - __main__ - INFO - Building configuration from UI.
+2025-09-26 21:54:56,597 - __main__ - INFO - Built plan with 1 tasks.
+2025-09-26 21:54:56,597 - __main__ - INFO - Input method selected: scancode
+2025-09-26 21:54:56,597 - __main__ - INFO - Starting simulation thread.
+2025-09-26 21:54:56,598 - __main__ - INFO - Simulation plan execution started.
+2025-09-26 21:55:01,602 - __main__ - INFO - Simulation status updated: running
+2025-09-26 21:55:01,603 - __main__ - CRITICAL - Runtime error during simulation: SendInput 调用失败 (返回值 0, 错误码 87)
+Traceback (most recent call last):
+  File "C:\Users\tmp\Desktop\keyboard_simulator\keyboard_simulator_gui.py", line 266, in runner
+    sim.run_plan(plan)
+    ~~~~~~~~~~~~^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 64, in run_plan
+    self._execute_task(task, plan.delay_between_keystrokes)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 81, in _execute_task
+    self.backend.type_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 243, in type_character
+    self._type_scancode_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 208, in _type_scancode_character
+    self._key_down(vk_code)
+    ~~~~~~~~~~~~~~^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 178, in _key_down
+    self._send_input(inp)
+    ~~~~~~~~~~~~~~~~^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 160, in _send_input
+    raise BackendError(
+        f"SendInput 调用失败 (返回值 {sent}, 错误码 {error})"
+    )
+keyboard_simulator.backends.base.BackendError: SendInput 调用失败 (返回值 0, 错误码 87)
+2025-09-26 21:55:01,608 - __main__ - INFO - Simulation status updated: error
+2025-09-26 21:55:07,718 - __main__ - INFO - Close window requested.
+2025-09-26 21:55:07,718 - __main__ - INFO - Destroying main window.
+2025-09-26 21:55:07,748 - __main__ - INFO - Application finished.
+2025-09-26 22:04:18,786 - root - INFO - Logging configured: Level=INFO, File=logs\keyboard_simulator.log
+2025-09-26 22:04:18,786 - __main__ - INFO - Application starting.
+2025-09-26 22:04:18,884 - __main__ - INFO - Initializing GUI application.
+2025-09-26 22:04:18,974 - __main__ - INFO - Global hotkeys (F9, F10, F11) registered successfully.
+2025-09-26 22:04:18,974 - __main__ - INFO - GUI initialized successfully.
+2025-09-26 22:04:27,851 - __main__ - INFO - Building configuration from UI.
+2025-09-26 22:04:27,851 - __main__ - INFO - Built plan with 1 tasks.
+2025-09-26 22:04:27,851 - __main__ - INFO - Input method selected: scancode
+2025-09-26 22:04:27,851 - __main__ - INFO - Starting simulation thread.
+2025-09-26 22:04:27,852 - __main__ - INFO - Simulation plan execution started.
+2025-09-26 22:04:32,856 - __main__ - INFO - Simulation status updated: running
+2025-09-26 22:04:32,857 - __main__ - CRITICAL - Runtime error during simulation: SendInput 调用失败 (返回值 0, 错误码 0)
+Traceback (most recent call last):
+  File "C:\Users\tmp\Desktop\keyboard_simulator\keyboard_simulator_gui.py", line 266, in runner
+    sim.run_plan(plan)
+    ~~~~~~~~~~~~^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 64, in run_plan
+    self._execute_task(task, plan.delay_between_keystrokes)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 81, in _execute_task
+    self.backend.type_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 246, in type_character
+    self._type_scancode_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 211, in _type_scancode_character
+    self._key_down(vk_code)
+    ~~~~~~~~~~~~~~^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 181, in _key_down
+    self._send_input(inp)
+    ~~~~~~~~~~~~~~~~^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 163, in _send_input
+    raise BackendError(
+        f"SendInput 调用失败 (返回值 {sent}, 错误码 {error})"
+    )
+keyboard_simulator.backends.base.BackendError: SendInput 调用失败 (返回值 0, 错误码 0)
+2025-09-26 22:04:32,863 - __main__ - INFO - Simulation status updated: error
+2025-09-26 22:04:37,621 - __main__ - INFO - Close window requested.
+2025-09-26 22:04:37,622 - __main__ - INFO - Destroying main window.
+2025-09-26 22:04:37,654 - __main__ - INFO - Application finished.
+2025-09-26 22:05:01,000 - root - INFO - Logging configured: Level=INFO, File=logs\keyboard_simulator.log
+2025-09-26 22:05:01,000 - __main__ - INFO - Application starting.
+2025-09-26 22:05:01,093 - __main__ - INFO - Initializing GUI application.
+2025-09-26 22:05:01,181 - __main__ - INFO - Global hotkeys (F9, F10, F11) registered successfully.
+2025-09-26 22:05:01,181 - __main__ - INFO - GUI initialized successfully.
+2025-09-26 22:05:06,990 - __main__ - INFO - Building configuration from UI.
+2025-09-26 22:05:06,990 - __main__ - INFO - Built plan with 1 tasks.
+2025-09-26 22:05:06,990 - __main__ - INFO - Input method selected: scancode
+2025-09-26 22:05:06,991 - __main__ - INFO - Starting simulation thread.
+2025-09-26 22:05:06,991 - __main__ - INFO - Simulation plan execution started.
+2025-09-26 22:05:11,995 - __main__ - INFO - Simulation status updated: running
+2025-09-26 22:05:11,995 - __main__ - CRITICAL - Runtime error during simulation: argument 2: TypeError: expected LP_Input instance instead of pointer to Input_Array_1
+Traceback (most recent call last):
+  File "C:\Users\tmp\Desktop\keyboard_simulator\keyboard_simulator_gui.py", line 266, in runner
+    sim.run_plan(plan)
+    ~~~~~~~~~~~~^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 64, in run_plan
+    self._execute_task(task, plan.delay_between_keystrokes)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 81, in _execute_task
+    self.backend.type_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 246, in type_character
+    self._type_scancode_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 211, in _type_scancode_character
+    self._key_down(vk_code)
+    ~~~~~~~~~~~~~~^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 181, in _key_down
+    self._send_input(inp)
+    ~~~~~~~~~~~~~~~~^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 160, in _send_input
+    sent = user32.SendInput(n_inputs, ctypes.byref(input_array), ctypes.sizeof(Input))
+ctypes.ArgumentError: argument 2: TypeError: expected LP_Input instance instead of pointer to Input_Array_1
+2025-09-26 22:05:12,000 - __main__ - INFO - Simulation status updated: error
+2025-09-26 22:05:16,334 - __main__ - INFO - Close window requested.
+2025-09-26 22:05:16,335 - __main__ - INFO - Destroying main window.
+2025-09-26 22:05:16,364 - __main__ - INFO - Application finished.
+2025-09-26 22:05:29,389 - root - INFO - Logging configured: Level=INFO, File=logs\keyboard_simulator.log
+2025-09-26 22:05:29,390 - __main__ - INFO - Application starting.
+2025-09-26 22:05:29,494 - __main__ - INFO - Initializing GUI application.
+2025-09-26 22:05:29,622 - __main__ - INFO - Global hotkeys (F9, F10, F11) registered successfully.
+2025-09-26 22:05:29,622 - __main__ - INFO - GUI initialized successfully.
+2025-09-26 22:05:33,242 - __main__ - INFO - Building configuration from UI.
+2025-09-26 22:05:33,242 - __main__ - INFO - Built plan with 1 tasks.
+2025-09-26 22:05:33,242 - __main__ - INFO - Input method selected: scancode
+2025-09-26 22:05:33,242 - __main__ - INFO - Starting simulation thread.
+2025-09-26 22:05:33,243 - __main__ - INFO - Simulation plan execution started.
+2025-09-26 22:05:38,246 - __main__ - INFO - Simulation status updated: running
+2025-09-26 22:05:38,247 - __main__ - CRITICAL - Runtime error during simulation: SendInput 调用失败 (返回值 0, 错误码 87)
+Traceback (most recent call last):
+  File "C:\Users\tmp\Desktop\keyboard_simulator\keyboard_simulator_gui.py", line 266, in runner
+    sim.run_plan(plan)
+    ~~~~~~~~~~~~^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 64, in run_plan
+    self._execute_task(task, plan.delay_between_keystrokes)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\simulator.py", line 81, in _execute_task
+    self.backend.type_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 246, in type_character
+    self._type_scancode_character(char, delay)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 211, in _type_scancode_character
+    self._key_down(vk_code)
+    ~~~~~~~~~~~~~~^^^^^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 181, in _key_down
+    self._send_input(inp)
+    ~~~~~~~~~~~~~~~~^^^^^
+  File "E:\Desktop\keyboard_simulator\src\keyboard_simulator\backends\sendinput.py", line 163, in _send_input
+    raise BackendError(
+        f"SendInput 调用失败 (返回值 {sent}, 错误码 {error})"
+    )
+keyboard_simulator.backends.base.BackendError: SendInput 调用失败 (返回值 0, 错误码 87)
+2025-09-26 22:05:38,253 - __main__ - INFO - Simulation status updated: error
+2025-09-26 22:05:42,806 - __main__ - INFO - Close window requested.
+2025-09-26 22:05:42,806 - __main__ - INFO - Destroying main window.
+2025-09-26 22:05:42,835 - __main__ - INFO - Application finished.
+2025-09-26 22:09:22,389 - root - INFO - Logging configured: Level=INFO, File=logs\keyboard_simulator.log
+2025-09-26 22:09:22,390 - __main__ - INFO - Application starting.
+2025-09-26 22:09:22,487 - __main__ - INFO - Initializing GUI application.
+2025-09-26 22:09:22,581 - __main__ - INFO - Global hotkeys (F9, F10, F11) registered successfully.
+2025-09-26 22:09:22,581 - __main__ - INFO - GUI initialized successfully.
+2025-09-26 22:09:28,256 - __main__ - INFO - Building configuration from UI.
+2025-09-26 22:09:28,257 - __main__ - INFO - Built plan with 1 tasks.
+2025-09-26 22:09:28,257 - __main__ - INFO - Input method selected: scancode
+2025-09-26 22:09:33,887 - __main__ - INFO - Building configuration from UI.
+2025-09-26 22:09:33,888 - __main__ - INFO - Built plan with 1 tasks.
+2025-09-26 22:09:33,888 - __main__ - INFO - Input method selected: scancode
+2025-09-26 22:09:36,044 - __main__ - INFO - Close window requested.
+2025-09-26 22:09:36,044 - __main__ - INFO - Destroying main window.
+2025-09-26 22:09:36,074 - __main__ - INFO - Application finished.
+2025-09-26 22:10:23,277 - root - INFO - Logging configured: Level=INFO, File=logs\keyboard_simulator.log
+2025-09-26 22:10:23,277 - __main__ - INFO - Application starting.
+2025-09-26 22:10:23,374 - __main__ - INFO - Initializing GUI application.
+2025-09-26 22:10:23,476 - __main__ - INFO - Global hotkeys (F9, F10, F11) registered successfully.
+2025-09-26 22:10:23,476 - __main__ - INFO - GUI initialized successfully.
+2025-09-26 22:10:28,312 - __main__ - INFO - Building configuration from UI.
+2025-09-26 22:10:28,312 - __main__ - INFO - Built plan with 1 tasks.
+2025-09-26 22:10:28,313 - __main__ - INFO - Input method selected: scancode
+2025-09-26 22:10:28,313 - __main__ - INFO - Starting simulation thread.
+2025-09-26 22:10:28,313 - __main__ - INFO - Simulation plan execution started.
+2025-09-26 22:10:33,317 - __main__ - INFO - Simulation status updated: running
+2025-09-26 22:10:33,344 - __main__ - INFO - Simulation plan execution finished.
+2025-09-26 22:10:33,344 - __main__ - INFO - Simulation status updated: completed
+2025-09-26 22:10:49,632 - __main__ - INFO - Building configuration from UI.
+2025-09-26 22:10:49,633 - __main__ - INFO - Built plan with 1 tasks.
+2025-09-26 22:10:49,633 - __main__ - INFO - Input method selected: unicode
+2025-09-26 22:10:49,633 - __main__ - INFO - Starting simulation thread.
+2025-09-26 22:10:49,633 - __main__ - INFO - Simulation plan execution started.
+2025-09-26 22:10:54,640 - __main__ - INFO - Simulation status updated: running
+2025-09-26 22:10:54,673 - __main__ - INFO - Simulation plan execution finished.
+2025-09-26 22:10:54,673 - __main__ - INFO - Simulation status updated: completed
+2025-09-26 22:10:58,458 - __main__ - INFO - Close window requested.
+2025-09-26 22:10:58,458 - __main__ - INFO - Destroying main window.
+2025-09-26 22:10:58,485 - __main__ - INFO - Application finished.
+2025-09-26 22:22:34,010 - root - INFO - Logging configured: Level=INFO, File=logs\keyboard_simulator.log
+2025-09-26 22:22:34,011 - __main__ - INFO - Application starting.
+2025-09-26 22:22:34,112 - __main__ - INFO - Initializing GUI application.
+2025-09-26 22:22:34,202 - __main__ - INFO - Global hotkeys (F9, F10, F11) registered successfully.
+2025-09-26 22:22:34,202 - __main__ - INFO - GUI initialized successfully.
+2025-09-26 22:22:39,167 - __main__ - INFO - Close window requested.
+2025-09-26 22:22:39,167 - __main__ - INFO - Destroying main window.
+2025-09-26 22:22:39,201 - __main__ - INFO - Application finished.
