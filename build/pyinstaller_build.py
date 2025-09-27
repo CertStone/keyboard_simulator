@@ -84,6 +84,9 @@ def _generate_spec_file(variant: str) -> Path:
     # Convert datas to the correct format for the spec file
     datas_formatted = [f"('{src}', '{dest}')" for src, dest in config["datas"]]
 
+    # 使用 repr() 来获取一个安全的、带正确转义的路径字符串
+    script_path_repr = repr(str(config["script"]))
+
     spec_content = f"""
 # -*- mode: python ; coding: utf-8 -*-
 
@@ -93,7 +96,7 @@ sys.setrecursionlimit(5000)
 block_cipher = None
 
 a = Analysis(
-    ['{str(config["script"]).replace("\\\\", "/")}'],
+    [{script_path_repr}],
     pathex={pathex!r},
     binaries=[],
     datas=[{", ".join(datas_formatted)}],
