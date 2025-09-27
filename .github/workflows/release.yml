@@ -11,6 +11,8 @@ jobs:
   build-and-release:
     name: Build and Release
     runs-on: windows-latest # PyInstaller and backends are Windows-specific
+    permissions:
+      contents: write # <-- 新增的权限声明
 
     steps:
       - name: Checkout repository
