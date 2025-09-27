@@ -1,15 +1,119 @@
-跨虚拟机键盘模拟输入工具 - 说明文档1. 项目简介本项目旨在解决因虚拟化软件限制而无法直接复制粘贴的问题。通过在宿主机 (Windows) 上运行一个 Python 脚本，可以模拟真实键盘操作，将指定的文本内容或文件内容自动输入到目标虚拟机（Windows 或 Linux）中。对于二进制文件，本工具采用 Base64 编码的策略，将其转换为纯文本字符串，然后在目标虚拟机中通过命令行工具（如 base64 或 certutil）解码，从而实现文件的“传输”。2. 文件结构keyboard_simulator.py: 主程序脚本，负责读取配置、执行键盘模拟。config.json: 配置文件。 所有操作都通过修改此文件来定义。说明文档.md: 您正在阅读的这份文件。3. 环境准备操作系统: 您的操作主机必须是 Windows。Python: 需要安装 Python 3.x。您可以从 Python 官网 下载。安装时请勾选 "Add Python to PATH"。本项目无需安装任何第三方库，仅使用 Python 内置模块。4. 使用方法核心步骤：编辑 config.json 文件，根据您的需求设置模式 (mode) 和相关参数。打开一个命令行终端（如 CMD 或 PowerShell）。使用 cd 命令切换到项目文件所在的目录。运行主程序: python keyboard_simulator.py程序会显示一个倒计时（默认为 5 秒）。在这段时间内，请立刻点击目标虚拟机的窗口，确保输入焦点在虚拟机内部的命令行或编辑器上。倒计时结束后，程序将自动开始输入。请勿移动鼠标或操作键盘，直到程序完成。配置示例 (config.json)模式一：输入纯文本 (text)如果您想输入一段文字（例如一段代码、一个命令或一篇文章），请这样配置：{
-  "mode": "text",
-  "text_to_type": "echo 'Hello from the host machine!'\nls -la\n",
-  "delay_between_keystrokes": 0.01,
-  "countdown_before_start": 5
-}
-text_to_type: 您要输入的字符串。特殊字符 \n 会被转换成回车键。delay_between_keystrokes: 每个按键之间的延迟（秒）。如果虚拟机反应慢，可以适当增加此值。模式二：传输文件 (file)如果您想将一个文件传输到虚拟机，请这样配置：{
-  "mode": "file",
-  "file_path": "C:/path/to/your/program.exe",
-  "target_os": "windows",
-  "output_filename": "program.exe",
-  "delay_between_keystrokes": 0.01,
-  "countdown_before_start": 5
-}
-file_path: 您本机上要传输的文件的完整路径。请使用 / 作为路径分隔符。target_os: 目标虚拟机的操作系统，可以是 "windows" 或 "linux"。这非常重要，因为解码命令不同。output_filename: 文件在虚拟机中保存的名称。5. 技术原理键盘模拟: 脚本通过 Python 的 ctypes 库调用 Windows 底层的 SendInput API。此 API 可以精确模拟键盘的按下（KeyDown）和抬起（KeyUp）事件，可靠性高。文件编码: 使用标准的 Base64 编码，它能将任意二进制数据转换成由 a-z, A-Z, 0-9, +, / 组成的文本字符串，便于传输。文件解码:Linux: 生成 echo '...' | base64 -d > filename 命令。Windows: 由于 Windows 没有原生 base64 命令，我们利用 certutil -decode。脚本会先用 echo 将 Base64 字符串分块写入临时文件（如 tmp.b64），然后执行解码命令，最后删除临时文件。6. 注意事项键盘布局: 本脚本默认基于标准的美式 (US) 键盘布局。如果您的主机或虚拟机使用其他布局，某些特殊字符可能会映射错误。焦点: 运行脚本后必须将鼠标焦点切换到目标窗口，否则输入会发送到您当前激活的窗口上。稳定性: 对于非常大的文件，传输过程可能需要很长时间，且容易被意外中断。建议用于传输中小型文件（几 MB 以内）。权限: 请确保您在目标虚拟机中有权限创建文件和执行命令。
+# 键盘模拟器 - 命令行界面 (CLI)
+
+命令行界面 (CLI) 为开发者和高级用户提供了一个强大、灵活的方式来使用键盘模拟器，无需图形界面。它非常适合集成到自动化脚本或在终端环境中直接使用。
+
+## 1. 功能概览
+
+- **多种输入模式**：直接通过参数输入文本 (`--text`) 或指定文件 (`--file`)。
+- **后端选择**：支持在标准 `sendinput` 后端和专业的 `interception` 后端之间切换。
+- **参数配置**：所有 GUI 中的选项，如按键延迟、启动倒计时等，都可以通过命令行参数进行配置。
+- **日志系统**：可选的日志记录功能，便于调试和追踪。
+- **兼容旧版**：支持通过 `--config` 参数加载旧版的 `config.json` 文件。
+
+## 2. 安装
+
+如果您已经按照主 `README.md` 中的说明安装了依赖，则可跳过此步。CLI 的核心功能无需额外依赖。
+
+```powershell
+# 激活虚拟环境
+.\.venv\Scripts\Activate.ps1
+
+# 以可编辑模式安装
+pip install -e .
+```
+
+## 3. 使用方法
+
+CLI 的主入口是 `keyboard-simulator` 命令（或 `ksim` 作为别名），这是在 `pyproject.toml` 中定义的。
+
+### 基本用法
+
+**模拟输入一段文本：**
+
+```bash
+# 输入 "Hello, World!" 并换行
+keyboard-simulator --text "Hello, World!\n"
+```
+
+**传输一个文件 (默认目标为 Linux):**
+
+```bash
+# 将 a.txt 传输到目标系统中，并命名为 remote_a.txt
+keyboard-simulator --file "C:\path\to\a.txt" --output "remote_a.txt"
+```
+
+**传输文件到 Windows 虚拟机：**
+
+```bash
+# 指定 --target-os 为 windows
+keyboard-simulator --file "C:\path\to\program.exe" --target-os windows --output "program.exe"
+```
+
+### 高级选项
+
+**指定按键延迟和倒计时：**
+
+```bash
+# 设置按键延迟为 20 毫秒，启动前倒计时为 3 秒
+keyboard-simulator --text "fast input" --delay 0.02 --countdown 3
+```
+
+**使用 Interception 后端 (需要预装驱动):**
+
+```bash
+# 使用 interception 后端可以更好地兼容虚拟机和游戏
+keyboard-simulator --text "Hello, VMware!" --backend interception
+```
+
+**启用日志记录：**
+
+日志对于调试非常有用。
+
+```bash
+# 启用日志，并将级别设置为 DEBUG
+keyboard-simulator --text "debug session" --log --log-level DEBUG
+```
+日志文件将保存在 `logs/keyboard_simulator.log`。
+
+### 所有可用参数
+
+您可以通过 `keyboard-simulator --help` 查看所有可用选项：
+
+- `--config FILE`: 加载 JSON 配置文件，用于兼容旧版。
+- `--text TEXT`: 要模拟输入的文本字符串。
+- `--file FILE`: 要传输的本地文件路径。
+- `--target-os {windows,linux}`: 文件传输的目标操作系统 (默认为 `linux`)。
+- `--output FILENAME`: 在目标系统上保存的文件名。
+- `--delay SECONDS`: 按键之间的延迟（秒）。
+- `--countdown SECONDS`: 开始模拟前的倒计时（秒）。
+- `--backend {sendinput,interception}`: 选择键盘模拟后端 (默认为 `sendinput`)。
+- `--log`: 启用文件和控制台日志记录。
+- `--log-level LEVEL`: 设置日志级别 (如 `DEBUG`, `INFO`)。
+
+## 4. 示例场景
+
+### 场景一：自动化部署脚本
+
+假设您需要自动在一个新的 Linux 虚拟机中运行一个设置脚本。
+
+```bash
+# 准备您的 setup.sh 脚本
+# 然后在宿主机上运行：
+keyboard-simulator --file "./setup.sh" --output "setup.sh" --countdown 5
+# (在 5 秒内切换到虚拟机终端)
+# 脚本传输完成后，再发送执行命令
+keyboard-simulator --text "bash setup.sh\n" --countdown 2
+```
+
+### 场景二：在远程桌面中粘贴密码
+
+由于安全策略，某些远程桌面禁止粘贴。您可以使用此工具输入一个长而复杂的密码。
+
+```bash
+# 在本地终端输入以下命令，然后迅速点击远程桌面的密码框
+keyboard-simulator --text "Your-L0ng_and-C0mpl3x-P@ssw0rd!" --delay 0.05
+```
+
+---
+
+CLI 提供了与 GUI 版本完全相同的核心功能，但方式更直接、更适合脚本化。请根据您的具体需求选择最适合的工具。

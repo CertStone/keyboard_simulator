@@ -1,0 +1,88 @@
+# .github/workflows/release.yml
+
+name: Create Release and Upload Binaries
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger on tags like v0.1.0, v1.2.3
+
+jobs:
+  build-and-release:
+    name: Build and Release
+    runs-on: windows-latest # PyInstaller and backends are Windows-specific
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13' # Choose a stable Python version
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Install all optional dependencies needed for build and pro version
+          pip install -e .[dev,pro,build]
+        shell: pwsh
+
+      - name: Build executables
+        id: build
+        run: |
+          python build/pyinstaller_build.py all
+        shell: pwsh
+
+      - name: Get release notes from changelog
+        id: get_release_notes
+        run: |
+          $changelog = Get-Content CHANGELOG.md -Raw
+          $version = "${{ github.ref_name }}".Substring(1) # Get version from tag (e.g., v1.0.0 -> 1.0.0)
+          $pattern = "(?s)## \[$version\].*?(\n## |$)"
+          if ($changelog -match $pattern) {
+            $notes = $matches[0].Trim()
+            # Clean up the notes for GitHub release body
+            $notes = $notes -replace "(?m)^## \[.*?\] - \d{4}-\d{2}-\d{2}", ""
+            $notes = $notes.Trim()
+            echo "RELEASE_NOTES<<EOF" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+            echo "$notes" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+            echo "EOF" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+            echo "Found release notes for version $version"
+          } else {
+            echo "RELEASE_NOTES=No release notes found for this version in CHANGELOG.md." | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+            echo "Warning: No release notes found for version $version"
+          }
+        shell: pwsh
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref_name }}
+          body: ${{ env.RELEASE_NOTES }}
+          draft: false
+          prerelease: false
+
+      - name: Upload GUI Executable
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/KeyboardSimulatorGUI.exe
+          asset_name: KeyboardSimulatorGUI.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
+
+      - name: Upload PRO Executable
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/KeyboardSimulatorPro.exe
+          asset_name: KeyboardSimulatorPro.exe
+          asset_content_type: application/vnd.microsoft.portable-executable

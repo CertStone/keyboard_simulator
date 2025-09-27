@@ -1,150 +1,89 @@
-# Keyboard Simulator
+# 键盘模拟器
 
-跨虚拟机键盘模拟器，帮助你在 VMware、VirtualBox、远程桌面和各种受限环境中“粘贴”文本或文件。项目同时提供：
-
-- 🧰 **命令行工具**：快速自动化脚本或批处理工作流。
-- 🪟 **GUI 版**：标准 Win32 模拟（SendInput），支持暂停、热键、拖拽文件。
-- 🛡️ **PRO 版**：基于 Interception 驱动的超高兼容方案，可在高防护/游戏环境中稳定运行。
-
-项目经过全面模块化重构，核心逻辑位于 `src/keyboard_simulator` 包，可作为库复用。
+跨虚拟机键盘模拟器，帮助你在 VMware、VirtualBox、远程桌面和各种受限环境中“粘贴”文本或文件。
 
 ---
 
-## ✨ 功能亮点
+## ⏬ 下载 (推荐)
 
-- 统一的配置模型：文本输入或 Base64 文件传输，一套流程全搞定
-- CLI/GUI/PRO 共享同一套核心模块，减少重复逻辑
-- GUI 支持热键（F9/F10/F11）、暂停恢复、Unicode/ScanCode 双模式
-- PRO 版监听驱动层热键，物理键盘可正常使用
-- 结构化文档、单元测试、可复用的编码工具与模拟器 hooks
+我们为普通用户提供了已打包好的可执行程序 (`.exe`)，无需安装 Python 或任何依赖。
+
+**[➡️ 前往最新发布页面下载](https://github.com/CertStone/keyboard_simulator/releases/latest)**
+
+下载 `KeyboardSimulator-vX.X.X.zip` 并解压后，你会看到以下主要文件：
+
+- `KeyboardSimulatorGUI.exe`: **标准图形界面版**，适用于大多数日常场景。
+- `KeyboardSimulatorPro.exe`: **专业图形界面版**，用于解决高难度兼容性问题。
+
+> **注意**: Pro 版本需要额外安装驱动，请务必阅读压缩包内的 **[PRO 版专属指南 (README_PRO.md)](./README_PRO.md)**。
 
 ---
 
-## 🚀 快速开始
+## 📖 了解不同版本
 
+本项目提供三种工具，以满足不同用户的需求。请根据下表选择最适合你的版本：
 
-```powershell
-# 进入项目目录
-pip install --upgrade pip
-pip install -e .[dev]
-```
+| 版本 | 工具名称 | 主要特点 | 适用场景 |
+| :--- | :--- | :--- | :--- |
+| **命令行版 (CLI)** | `keyboard-simulator` | 自动化、可脚本化、无界面 | 在批处理或自动化脚本中快速执行输入任务。 |
+| **图形界面版 (GUI)** | `KeyboardSimulatorGUI.exe` | 操作直观、功能全面、兼容性好 | 日常使用，支持热键、文件拖拽、暂停/恢复。 |
+| **专业版 (PRO)** | `KeyboardSimulatorPro.exe` | **兼容性最强**、驱动级模拟 | 在高防护软件、游戏或标准版无效的苛刻环境中使用。 |
 
-> 若只需运行 GUI 版本，可仅安装基础依赖 `pip install -e .`。
+### 使用指南
+- **标准版 GUI**: 功能与操作方法请直接参考 [GUI 程序界面](#-gui-界面概览)。
+- **PRO 版**: 需要额外安装驱动，请务必阅读 **[PRO 版专属指南 (README_PRO.md)](./README_PRO.md)**。
+- **命令行版**: 参数与用法请参考 **[CLI 专属指南 (README_CLI.md)](./README_CLI.md)**。
 
-### 2. 运行命令行工具
+---
 
-```powershell
-keyboard-simulator --text "echo hello" --delay 0.02
-```
+## 💻 为开发者：快速开始与贡献
 
-或使用配置文件：
+如果你希望从源码运行、修改代码或参与贡献，请遵循以下步骤。
 
-```powershell
-keyboard-simulator --config config.json
-```
-
-### 3. 启动 GUI
-
-```powershell
-python keyboard_simulator_gui.py
-```
-
-> 如果需要使用全局热键（F9/F10/F11），可能需要以管理员身份运行。
-
-### 4. 启动 PRO 版
-
-1.  安装 [Interception 驱动](https://github.com/oblitum/Interception/releases/latest) 并重启电脑。
-    （详细步骤见 `README_PRO.md`）
-
-2.  安装 PRO 版依赖：
-
+1.  **安装**:
+    首先，克隆本仓库并安装基础依赖。我们推荐在虚拟环境中进行。
     ```powershell
-    pip install -e .[pro]
+    git clone https://github.com/CertStone/keyboard_simulator.git
+    cd keyboard_simulator
+    pip install -e .
     ```
 
-3.  运行 PRO 版：
-
-    ```powershell
-    python keyboard_simulator_pro.py
-    ```
+2.  **深入了解**:
+    - **贡献流程**: 如果您打算贡献代码，请先阅读 **[贡献指南 (CONTRIBUTING.md)](./CONTRIBUTING.md)**，其中详细说明了开发环境搭建、代码风格和提交流程。
+    - **技术架构**: 如果您想深入了解项目的设计思路、模块划分和核心流程，请查阅 **[项目架构文档 (docs/ARCHITECTURE.md)](./docs/ARCHITECTURE.md)**。
 
 ---
 
-## 📦 使用 PyInstaller 打包
+## 📦 打包与发布
 
-我们提供 `build/pyinstaller_build.py` 脚本，基于 PyInstaller 一键生成 GUI 与 PRO 独立可执行文件。
+项目使用 PyInstaller 进行打包，并通过 GitHub Actions 自动发布。
 
-### 1. 安装构建依赖
-
-```powershell
-pip install -e .[build]
-# 打包 PRO 版时同步安装驱动依赖：
-pip install -e .[pro,build]
-```
-
-> **提示：** PRO 版本仍需在目标机器上安装 Interception 驱动。
-
-### 2. 执行打包脚本
-
-```powershell
-# 打包普通 GUI 版
-python build/pyinstaller_build.py gui
-
-# 打包 PRO 版
-python build/pyinstaller_build.py pro
-
-# 一次性构建两种版本
-python build/pyinstaller_build.py all
-```
-
-脚本默认输出到 `dist/` 目录，并自动清理临时构建产物：
-
--   `dist/KeyboardSimulatorGUI.exe`
--   `dist/KeyboardSimulatorPro.exe`
-
-如需自定义 PyInstaller 选项，可在脚本中调整 `VARIANT_CONFIG`。
+- **手动打包**:
+  ```powershell
+  # 安装构建依赖
+  pip install -e .[build]
+  # 执行打包
+  python build/pyinstaller_build.py all
+  ```
+- **自动发布**:
+  当 `main` 分支上创建并推送一个新的 `v*` 标签时，GitHub Actions 会自动构建所有可执行文件，并将其上传到新的 Release 中。
 
 ---
 
-## 🧭 使用指南
+##  GUI 界面概览
 
-### CLI
+![GUI Screenshot](./docs/assets/preview.png) 
 
-| 参数        | 说明                                    |
-| ----------- | --------------------------------------- |
-| `--config`  | 指定 JSON 配置文件路径                  |
-| `--text`    | 直接传入要输入的文本                    |
-| `--file`    | 要传输的本地文件路径                    |
-| `--target-os` | 目标系统 (`windows` 或 `linux`)         |
-| `--output`  | 在目标系统中保存的文件名                |
-| `--delay`   | 按键之间的延迟（秒）                    |
-| `--countdown` | 开始前的倒计时（秒）                    |
-| `--backend` | 使用的后端 (`sendinput` 或 `interception`) |
-
-### GUI / PRO
-
--   **文本模式**: 直接在文本框中输入内容。
--   **文件模式**: 将文件拖拽到窗口中，或使用新增的文件选择按钮。
--   **通用设置**: 调整延迟和倒计时以适应不同性能的虚拟机。
--   **热键**:
-    -   `F9`: 开始模拟
-    -   `F10`: 强制停止
-    -   `F11`: 暂停/恢复
-
-> PRO 版内置了更可靠的驱动层热键，无需依赖 `keyboard` 库。
-
----
-
-## 🏗️ 架构与开发
-
-项目架构、开发流程和贡献指南详见 `docs/ARCHITECTURE.md` 和 `CONTRIBUTING.md`。
-
--   **核心逻辑**: `src/keyboard_simulator`
--   **测试**: `tests/`
--   **构建脚本**: `build/`
+1.  **模式选择**: 通过顶部的标签页在“文本输入”和“文件传输”之间切换。
+2.  **参数配置**: 设置按键延迟、启动倒计时和输入模式（扫描码或 Unicode）。
+3.  **控制按钮**:
+    - **开始 (F9)**: 启动模拟任务。
+    - **暂停/恢复 (F11)**: 在任务执行期间暂停或恢复。
+    - **强制停止 (F10)**: 立即中止任务。
+4.  **状态栏**: 显示当前任务状态，如“空闲”、“运行中”、“已完成”等。
 
 ---
 
 ## 📄 许可
 
-本项目采用 [MIT License](./LICENSE)。商业、个人使用皆可，保留版权声明即可。
+本项目采用 [MIT License](./LICENSE)。

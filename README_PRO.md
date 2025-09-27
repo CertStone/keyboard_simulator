@@ -1,21 +1,19 @@
-键盘模拟器 - 专业版 (最终修正版)
-1. “专业版”简介
-此版本是为解决在 VMware、VirtualBox、远程桌面及各种高强度防护软件中输入无效的终极解决方案。它通过一个名为 Interception 的内核级驱动程序来模拟键盘输入，其模拟的真实度远超标准 API，能够应对最苛刻的虚拟化和安全环境。
+# 键盘模拟器 - 专业版 (Interception 驱动)
 
-核心变化：
+## 1. “专业版”简介
 
-内核级模拟: 放弃了所有标准 API，完全采用 Interception 驱动进行输入，兼容性达到最高。
+此版本是为解决在 VMware、VirtualBox、远程桌面及各种高强度防护软件中输入无效的终极解决方案。它通过一个名为 **Interception** 的内核级驱动程序来模拟键盘输入，其模拟的真实度远超标准 API，能够应对最苛刻的虚拟化和安全环境。
 
-API 修正: 已根据 interception-python 库的正确用法，完全重写了模拟器核心代码。
-
-键盘劫持问题修复: 增加了独立的键盘监听线程，物理键盘在程序运行时可以完全正常使用。
-
-内置热键: 放弃了有冲突的 keyboard 库，直接在驱动层面实现了 F9, F10, F11 热键监听，响应更迅速、更可靠。
+**与标准 GUI 版的区别**:
+- **核心技术**: 完全采用 `Interception` 驱动进行输入，兼容性最高。
+- **热键实现**: 直接在驱动层面监听 F9, F10, F11 热键，无需 `keyboard` 库，响应更迅速、更可靠，且不影响物理键盘的正常使用。
 
 ## 2. 【重要】安装与设置
+
 此版本需要一个额外的、关键的安装步骤：安装 Interception 驱动程序。
 
 ### 第一步：安装 Interception 驱动
+
 1.  **下载**: 前往 Interception 的官方发布页面下载最新版本：
     [https://github.com/oblitum/Interception/releases/latest](https://github.com/oblitum/Interception/releases/latest)
     下载名为 `Interception.zip` 的文件。
@@ -23,7 +21,7 @@ API 修正: 已根据 interception-python 库的正确用法，完全重写了�
 2.  **解压**: 将 `Interception.zip` 解压到一个固定的位置，例如 `C:\Interception`。
 
 3.  **安装**:
-    - 以 **管理员身份** 打开命令提示符 (CMD)。
+    - 以 **管理员身份** 打开命令提示符 (CMD) 或 PowerShell。
     - 使用 `cd` 命令进入您解压的文件夹，然后进入 `command line installer` 子目录。例如：
       ```cmd
       cd C:\Interception\"command line installer"
@@ -37,22 +35,21 @@ API 修正: 已根据 interception-python 库的正确用法，完全重写了�
 4.  **重启电脑**: 这是 **必须的** 步骤！驱动程序只有在重启后才能正确加载。
 
 ### 第二步：安装 Python 依赖库
-打开命令提示符 (不需要管理员)，运行以下命令安装正确的 Interception 封装库：
+
+如果您已按照主 `README.md` 中的说明安装了 `[pro]` 依赖，则可跳过此步。
+
 ```bash
-pip install interception-python
+# 安装 interception-python 和 tkinterdnd2
+pip install -e .[pro]
 ```
 > **注意**: 如果您之前根据错误的提示安装了名为 `interception` 的库，请务必先卸载它 (`pip uninstall interception`)，以避免冲突。
 
-如果您之前没有安装过 `tkinterdnd2`，请安装它：
-```bash
-pip install tkinterdnd2
-```
-
 ## 3. 使用方法
-安装完成后，使用方法与之前的 GUI 版本完全相同。
+
+安装完成后，使用方法与标准 GUI 版本完全相同。
 
 ### 启动程序
-直接运行 `keyboard_simulator_pro.py` 即可。通常不再需要管理员权限。
+直接运行 `keyboard_simulator_pro.py` 即可。
 ```bash
 python keyboard_simulator_pro.py
 ```
@@ -66,6 +63,7 @@ python keyboard_simulator_pro.py
 在倒计时期间，将鼠标焦点切换到 VMware 虚拟机内部，程序将开始精准输入。
 
 ## 4. 卸载驱动 (如果需要)
+
 如果您想卸载 Interception 驱动，同样以管理员身份打开 CMD，进入 `command line installer` 目录，运行：
 ```cmd
 install-interception.exe /uninstall

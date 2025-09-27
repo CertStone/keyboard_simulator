@@ -318,3 +318,12 @@ keyboard_simulator.backends.base.BackendError: SendInput 调用失败 (返回值
 2025-09-26 22:22:39,167 - __main__ - INFO - Close window requested.
 2025-09-26 22:22:39,167 - __main__ - INFO - Destroying main window.
 2025-09-26 22:22:39,201 - __main__ - INFO - Application finished.
+2025-09-27 22:34:00,134 - root - INFO - Logging configured: Level=INFO, File=logs\keyboard_simulator.log
+2025-09-27 22:34:00,135 - __main__ - INFO - PRO application starting.
+2025-09-27 22:34:00,444 - __main__ - INFO - Initializing PRO GUI application.
+2025-09-27 22:34:00,444 - __main__ - INFO - Initializing Interception driver context.
+2025-09-27 22:34:00,444 - __main__ - INFO - Found keyboard device at index: 0
+2025-09-27 22:34:00,507 - __main__ - INFO - Keyboard listener thread started.
+2025-09-27 22:34:00,507 - __main__ - INFO - PRO GUI initialized successfully.
+2025-09-27 22:37:28,302 - __main__ - INFO - Close window requested. Destroying context and window.
+2025-09-27 22:37:28,345 - __main__ - INFO - PRO application finished.
