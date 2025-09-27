@@ -8,10 +8,10 @@ __pycache__/
 .ruff_cache/
 
 # Build artifacts
-dist/
-build/
+dist
+build/pyinstaller
 *.spec
 
 # Logs
-logs/
+logs
 
