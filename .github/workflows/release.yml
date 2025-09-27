@@ -32,6 +32,8 @@ jobs:
         id: build
         run: |
           python build/pyinstaller_build.py all
+        env:
+          PYTHONIOENCODING: 'utf-8'
         shell: pwsh
 
       - name: Get release notes from changelog
