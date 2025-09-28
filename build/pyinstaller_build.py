@@ -51,7 +51,12 @@ VARIANT_CONFIG = {
         "script": PROJECT_ROOT / "keyboard_simulator_pro.py",
         "name": "KeyboardSimulatorPro",
         "description": "PRO 版 (Interception 驱动)",
-        "hidden_imports": ["tkinterdnd2", "keyboard", "interception"],
+        "hidden_imports": [
+            "tkinterdnd2",
+            "keyboard",
+            "interception",
+            "win32api",  # <-- 在这里显式添加
+        ],
         "datas": [],
     },
 }
