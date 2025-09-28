@@ -55,7 +55,7 @@ VARIANT_CONFIG = {
             "tkinterdnd2",
             "keyboard",
             "interception",
-            "win32api",  # <-- 在这里显式添加
+            "win32api",  
         ],
         "datas": [],
     },
